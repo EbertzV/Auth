@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Auth.Entities
+﻿namespace Auth.Entities
 {
-    internal class SessionResult
+    public sealed class SessionResult
     {
+        private SessionResult(bool valid)
+        {
+            Valid = valid;
+        }
+
+        public static SessionResult NewValid()
+            => new SessionResult(true);
+
+        public static SessionResult NewInvalid()
+            => new SessionResult(false);
+
+        public bool Valid { get; }
     }
 }

@@ -4,11 +4,11 @@
     {
         public User(string username, string password)
         {
-            Username = username;
-            Password = password;
+            this.username = username;
+            this.password = password;
         }
 
-        public string Username { get; }
-        public string Password { get; }
+        public string username { get; }
+        public string password { get; }
     }
 }

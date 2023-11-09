@@ -1,6 +1,8 @@
 ﻿using Auth.Entities;
+using System.Net.Http.Headers;
+using System.Text;
+using Newtonsoft.Json;
 using System.Net;
-using System.Text.Json;
 
 namespace Auth.Services
 {
@@ -20,15 +22,14 @@ namespace Auth.Services
             var message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri(_endpointUrl)
+                RequestUri = new Uri($"{_endpointUrl}Login")
             };
 
-            message.Headers.Clear();
-            message.Content = new StringContent(JsonSerializer.Serialize(user));
-
+            message.Content = new StringContent(JsonConvert.SerializeObject(user, new JsonSerializerSettings{ }), Encoding.UTF8, "application/json");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var result = await client.SendAsync(message);
 
-            if(result.StatusCode != HttpStatusCode.OK)
+            if (result.StatusCode != HttpStatusCode.OK)
                 return AuthenticationResult.NewFailure(result.StatusCode);
 
             using var stream = await result.Content.ReadAsStreamAsync();
