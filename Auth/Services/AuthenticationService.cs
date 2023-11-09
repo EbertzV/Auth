@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Net;
 
+
 namespace Auth.Services
 {
     public sealed class AuthenticationService
